@@ -1,44 +1,46 @@
 {
-  "name": "vue-ssr",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "client:dev": "webpack --config  ./config/webpack.dev.js --mode=development",
-    "client:prod": "webpack --config  --mode=production config/webpack.server.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.6.3",
-    "autoprefixer": "^9.6.5",
-    "babel-loader": "^8.0.6",
-    "css-loader": "^3.2.0",
-    "cssnano": "^4.1.10",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.12.0",
-    "postcss-loader": "^3.0.0",
-    "precss": "^4.0.0",
-    "sass-loader": "^8.0.0",
-    "style-loader": "^1.0.0",
-    "sugarss": "^2.0.0",
-    "url-loader": "^2.2.0",
-    "vue-loader": "^15.7.1",
-    "vue-server-renderer": "^2.6.10",
-    "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9",
-    "webpack-merge": "^4.2.2"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.6.3",
-    "axios": "^0.19.0",
-    "vue": "^2.6.10",
-    "vue-router": "^3.1.3",
-    "vuex": "^3.1.1"
-  }
+    "name": "vue-ssr",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "client:dev": "webpack --config  ./config/webpack.dev.js --mode=development",
+        "client:server": "webpack --config  ./config/webpack.server.js --mode=production ",
+        "devserver": "cross-env NODE_ENV=development supervisor ./build/app.js",
+        "gulp:prod": "cross-env NODE_ENV=production gulp buildprod"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.6.4",
+        "@babel/plugin-transform-runtime": "^7.6.2",
+        "@babel/preset-env": "^7.6.3",
+        "autoprefixer": "^9.6.5",
+        "babel-loader": "^8.0.6",
+        "css-loader": "^3.2.0",
+        "cssnano": "^4.1.10",
+        "html-webpack-plugin": "^3.2.0",
+        "mini-css-extract-plugin": "^0.8.0",
+        "node-sass": "^4.12.0",
+        "postcss-loader": "^3.0.0",
+        "precss": "^4.0.0",
+        "sass-loader": "^8.0.0",
+        "style-loader": "^1.0.0",
+        "sugarss": "^2.0.0",
+        "url-loader": "^2.2.0",
+        "vue-loader": "^15.7.1",
+        "vue-server-renderer": "^2.6.10",
+        "vue-style-loader": "^4.1.2",
+        "vue-template-compiler": "^2.6.10",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.9",
+        "webpack-merge": "^4.2.2"
+    },
+    "dependencies": {
+        "@babel/runtime": "^7.6.3",
+        "axios": "^0.19.0",
+        "vue": "^2.6.10",
+        "vue-router": "^3.1.3",
+        "vuex": "^3.1.1"
+    }
 }

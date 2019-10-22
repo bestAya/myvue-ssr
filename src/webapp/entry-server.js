@@ -6,12 +6,16 @@ export default context => {
         router.onReady(() => {
             const matchComponent = router.getMatchedComponents();
             Promise.all(matchComponent.map(component => {
-                console.log(component);
-                return component.asyncData({ store })
-            }))
-            .then(()=>{
-                context.state = store.state;
-            })
-            .catch(reject)
-        })
-    }
+                    console.log(component);
+                    if (component.asyncData) {
+                        return component.asyncData({ store })
+                    }
+
+                }))
+                .then(() => {
+                    context.state = store.state;
+                })
+                .catch(reject)
+        }, reject)
+    })
+}

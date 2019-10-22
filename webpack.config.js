@@ -3,13 +3,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
-    devtool: devMode
-        ? false
-        : '#cheap-module-source-map',
+    devtool: devMode ?
+        false : '#cheap-module-source-map',
     output: {
+        libraryTarget: 'commonjs2',
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
-        filename: '[name].[chunkhash].js'
+        filename: './js/[name].[chunkhash].js'
     },
     plugins: [
         new MiniCssExtractPlugin({
@@ -22,8 +22,7 @@ module.exports = {
         new VueLoaderPlugin()
     ],
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.vue$/,
                 loader: 'vue-loader',
             },
@@ -35,34 +34,33 @@ module.exports = {
             {
                 test: /\.(sc|sa|c)ss$/,
                 use: [{
-                    loader: 'style-loader'
-                },
-                {
-                    loader: 'css-loader',
-                    options: {
-                        sourceMap: true
-                    }
-                },
-                {
-                    loader: 'postcss-loader'
-                },
-                {
-                    loader: 'sass-loader',
-                    options: {
-                        sourceMap: true
-                    }
-                }] // use的顺序从右往左
+                            loader: 'style-loader'
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader'
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ] // use的顺序从右往左
             },
             {
                 test: /\.(png|jpg|gif)$/i,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192,
-                        },
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192,
                     },
-                ],
+                }, ],
             },
         ]
     },
