@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 module.exports = {
     plugins: [
         require("precss"),
@@ -7,4 +8,13 @@ module.exports = {
         }),
     ]
 
+=======
+var autoprefixer = require("autoprefixer");
+var precss = require("precss");
+module.exports = {
+    plugins: [
+        precss,
+        autoprefixer
+    ]
+>>>>>>> 8f3ac3c80697db50152ef6aa6af5d8a95225264f
 }
