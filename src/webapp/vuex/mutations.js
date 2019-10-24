@@ -1,7 +1,7 @@
 export default {
-    INCREMENT: (state) => ++state.cont,
-    DECREMENT: (state) => --state.cont,
-    TOPICS_LIST: (state, topics) => {
-        state.topics = topics;
+    INCREMENT: (state) => ++state.count,
+    DECREMENT: (state) => --state.count,
+    TOPICS_LIST: (state, topice) => {
+        state.topice = topice;
     }
 }

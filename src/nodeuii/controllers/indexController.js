@@ -6,10 +6,11 @@ import cheerio from 'cheerio';
 import { createBundleRenderer } from 'vue-server-renderer';
 import fs from 'fs';
 import path from 'path';
+import LRU from 'lru-cache';
 //创建数据流
 function createRenderer(bundle, template, clientManifest) {
     return createBundleRenderer(bundle, {
-        cache: require('lru-cache')({
+        cache: new LRU({
             max: 1000,
             maxAge: 1000 * 60 * 15
         }),
@@ -29,7 +30,7 @@ const clientManifest = require('../assets/vue-ssr-client-manifest.json');
 /*vue ssr end*/
 const indexController = {
     getData() {
-        return async(ctx, next) => {
+        return async (ctx, next) => {
             const indexModelIns = new indexModel();
             const _data = await indexModelIns.getData();
             // logger.info('哈哈哈哈');
@@ -37,22 +38,19 @@ const indexController = {
         }
     },
     index() {
-        return async(ctx, next) => {
-            const s = Date.now();
+        return async (ctx, next) => {
             const ssrrender = createRenderer(serverBundle, $.html(), clientManifest);
             const context = { url: ctx.url };
-            function createSsrStreamPromise() {
-                return new Promise((resolve, reject) => {
-                    if (!ssrrender) {
-                        return ctx.body = 'waiting for compilation.. refresh in a moment.'
-                    }
-                    const ssrStream = ssrrender.renderToStream(context);
-                    ctx.status = 200;
-                    ctx.type = 'html';
-                    ssrStream.on('error', err =>{reject(err)}).pipe(ctx.res);
-                });
-            }
-            await createSsrStreamPromise(context);
+            return new Promise((resolve, reject) => {
+                if (!ssrrender) {
+                    return ctx.body = 'waiting for compilation.. refresh in a moment.'
+                }
+                const ssrStream = ssrrender.renderToStream(context);
+                ctx.status = 200;
+                ctx.type = 'html';
+                ssrStream.on('error', err => { reject(err) }).pipe(ctx.res);
+            });
+
         };
     }
 };

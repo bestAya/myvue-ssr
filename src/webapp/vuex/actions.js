@@ -1,12 +1,16 @@
 import axios from 'axios';
-axios.defaults.baseURL = "http://loaclhost:8081";
+axios.defaults.baseURL = "http://localhost:8081/";
 
 export default {
-    incerment: ({ commit }) => commit('Incerment'),
-    decerment: ({ commit }) => commit('Decerment'),
-    getTopics: ({ commit, state }) => {
+    incerment: ({ commit }) => commit('INCREMENT'),
+    decerment: ({ commit }) => commit('DECREMENT'),
+    getTopice: ({ commit, state }) => {
         return axios.get('index/getdata').then(res => {
-            commit('TOPICS_LIST', res.data)
-        })
+            if (res.statusText === 'OK') {
+                commit('TOPICS_LIST', res.data)
+              }
+        }).catch((error) => {
+            console.log(error)
+          })
     }
 }

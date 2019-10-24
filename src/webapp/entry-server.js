@@ -1,21 +1,34 @@
-import { createdApp } from './main'
+import { createdApp } from './main.js'
 export default context => {
-    return new Promise((resolve, reject) => {
-        const { app, router, store } = createdApp();
-        router.push(context.url);
-        router.onReady(() => {
-            const matchComponent = router.getMatchedComponents();
-            Promise.all(matchComponent.map(component => {
-                    console.log(component);
-                    if (component.asyncData) {
-                        return component.asyncData({ store })
-                    }
-
-                }))
-                .then(() => {
-                    context.state = store.state;
-                })
-                .catch(reject)
-        }, reject)
-    })
+  return new Promise((resolve, reject) => {
+    const { app, router, store } = createdApp()
+    router.push(context.url)
+    router.onReady(() => {
+      const matchedComponents = router.getMatchedComponents();
+      // if (!matchedComponents.length) {
+         //reject({ code: 404 })
+      // }
+      // 对所有匹配的路由组件调用 `asyncData()`
+ //       Promise.all(matchedComponents.map(({ asyncData }) => asyncData && asyncData({
+ // +        store,
+ // +        route: router.currentRoute
+ // +      }))).then(() => {
+      Promise.all(matchedComponents.map(Component => {
+        if (Component.asyncData) {
+          return Component.asyncData({
+            store,
+            route: router.currentRoute
+          })
+        }
+      })).then(() => {
+        // 在所有预取钩子(preFetch hook) resolve 后，
+        // 我们的 store 现在已经填充入渲染应用程序所需的状态。
+        // 当我们将状态附加到上下文，
+        // 并且 `template` 选项用于 renderer 时，
+        // 状态将自动序列化为 `window.__INITIAL_STATE__`，并注入 HTML。
+        context.state = store.state
+        resolve(app)
+      }).catch(reject)
+    }, reject)
+  })
 }

@@ -5,6 +5,7 @@ const errorHandler = {
             try {
                 await next();
             } catch (err) {
+                console.log(111)
                 console.log('errcode',err);
                 ctx.status = err.status || 500;
                 ctx.body = await ctx.render('500',{data:err.stack});

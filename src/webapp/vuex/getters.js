@@ -1,4 +1,4 @@
 export default {
-    getCount: state => { state.cont },
+    getCount: state => { state.count },
     getTopice: state => { state.topice },
 }

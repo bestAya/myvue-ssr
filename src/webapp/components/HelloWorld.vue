@@ -1,6 +1,12 @@
 <template>
   <div class="hello">
-    <h1>{{ cont }}</h1>
+    <h1>{{ count }}</h1>
+    <div
+      v-for="(item,index) in topice"
+      :key="index"
+    >
+      {{item.title}}
+    </div>
     <button
       class="btn"
       @click="incerment"
@@ -9,29 +15,41 @@
       class="btn"
       @click="decerment"
     >减1 [-]</button>
+    <p>
+      {{data}}
+    </p>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-const apiGetTopice = ({ store }) => {
-  return store.dispatch("getTopics");
+const apiGetTopice = ({ store, route }) => {
+  console.log(store, route);
+  return store.dispatch("getTopice");
 };
 export default {
   asyncData: apiGetTopice,
   name: "HelloWorld",
-  props: {
-    msg: String
+  data() {
+    return {
+      data: "zfsafa"
+    };
   },
   computed: {
-    ...mapGetters({ cont: "getCount" })
+    ...mapGetters({
+      count: 'getCount',
+      topice: 'getTopice',
+    })
   },
   methods: {
     ...mapActions(["incerment", "decerment"])
   },
   mounted() {
-    apiGetTopice({ store });
-  }
+    apiGetTopice({ store: this.$store,route:this.$route });
+  },
+  created() {
+    console.log(this.$store.state.count)
+  },
 };
 </script>
 

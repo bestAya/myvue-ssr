@@ -6,62 +6,64 @@ module.exports = {
     devtool: devMode ?
         false : '#cheap-module-source-map',
     output: {
-        libraryTarget: 'commonjs2',
-        path: path.resolve(__dirname, './dist'),
-        publicPath: '/dist/',
-        filename: './js/[name].[chunkhash].js'
+        path: path.resolve(__dirname, './dist/assets'),
+        publicPath: '/',
+        filename: 'js/[name].[chunkhash].js'
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // all options are optional
-            filename: devMode ? '[name].css' : '[name].[hash].css',
-            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
-            ignoreOrder: false, // Enable to remove warnings about conflicting order
-        }),
+        // new MiniCssExtractPlugin({
+        //     // Options similar to the same options in webpackOptions.output
+        //     // all options are optional
+        //     filename: devMode ? '[name].css' : '[name].[hash].css',
+        //     chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        //     ignoreOrder: false, // Enable to remove warnings about conflicting order
+        // }),
         new VueLoaderPlugin()
     ],
     module: {
         rules: [{
-                test: /\.vue$/,
-                loader: 'vue-loader',
+            test: /\.vue$/,
+            loader: 'vue-loader',
+        },
+        {
+            test: /\.js$/,
+            loader: 'babel-loader',
+            exclude: /node_modules/
+        },
+        {
+            test: /\.(png|jpg|gif)$/i,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 8192,
+                },
+            },],
+        },
+        {
+            test: /\.(sc|sa|c)ss$/,
+            use: [{
+                loader: 'style-loader'
             },
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/
+                loader: 'vue-style-loader'
             },
             {
-                test: /\.(sc|sa|c)ss$/,
-                use: [{
-                            loader: 'style-loader'
-                        },
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
-                            loader: 'postcss-loader'
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        }
-                    ] // use的顺序从右往左
+                loader: 'css-loader',
+                options: {
+                    sourceMap: true
+                }
             },
             {
-                test: /\.(png|jpg|gif)$/i,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192,
-                    },
-                }, ],
+                loader: 'postcss-loader'
             },
+            {
+                loader: 'sass-loader',
+                options: {
+                    sourceMap: true
+                }
+            }
+            ] // use的顺序从右往左
+        },
         ]
     },
     resolve: {
@@ -69,10 +71,6 @@ module.exports = {
             '.vue', '.js'
         ],
         modules: ["node_modules"],
-        alias: {
-            vue: 'vue/dist/vue.min.js',
-            components: path.resolve(__dirname + '/src/webapp/components/'),
-            '@': path.resolve('src')
-        }
+        extensions: ['.js', '.css', '.vue']
     },
 }

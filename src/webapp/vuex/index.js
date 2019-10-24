@@ -9,7 +9,7 @@ Vue.use(Vuex);
 //定义初始化的state
 
 const defaultState = {
-    cont: 0,
+    count: 0,
     topice: [],
 }
 
@@ -20,8 +20,10 @@ let state = (isBrowser && window.__INITIAL_STATE__) || defaultState;
 
 export function createStore() {
     const store = new Vuex.Store({
+        state,
         actions,
         getters,
         mutations
     })
+    return store;
 }
