@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import actions from './actions'
-import getters from './getters'
+import * as getters from './getters'
 import mutations from './mutations'
 
 Vue.use(Vuex);
@@ -9,7 +9,7 @@ Vue.use(Vuex);
 //定义初始化的state
 
 const defaultState = {
-    count: 0,
+    count: 4,
     topice: [],
 }
 

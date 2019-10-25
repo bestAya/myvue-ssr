@@ -22,8 +22,8 @@ function createRenderer(bundle, template, clientManifest) {
 const rootPath = path.join(__dirname, '..');
 const template = fs.readFileSync(rootPath + '/assets/index.html', 'utf-8');
 const $ = cheerio.load(template);
-$('title').html('京程一灯');
-$("head").append(' <meta name="keywords" content=京程一灯>');
+$('title').html('vue-ssr');
+$("head").append(' <meta name="keywords" content=vue-ssr>');
 // console.log('模板数据',$.html());
 const serverBundle = require('../assets/vue-ssr-server-bundle.json');
 const clientManifest = require('../assets/vue-ssr-client-manifest.json');

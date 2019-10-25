@@ -16446,19 +16446,19 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = "http://localhos
 /*!************************************!*\
   !*** ./src/webapp/vuex/getters.js ***!
   \************************************/
-/*! exports provided: default */
+/*! exports provided: getTopice, getCount */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  getCount: function getCount(state) {
-    state.count;
-  },
-  getTopice: function getTopice(state) {
-    state.topice;
-  }
-});
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTopice", function() { return getTopice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCount", function() { return getCount; });
+var getTopice = function getTopice(state) {
+  return state.topice;
+};
+var getCount = function getCount(state) {
+  return state.count;
+};
 
 /***/ }),
 
@@ -16485,7 +16485,7 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); //定义初始化的state
 
 var defaultState = {
-  count: 0,
+  count: 4,
   topice: []
 }; //判断浏览器环境 抽离CDN
 
@@ -16495,7 +16495,7 @@ function createStore() {
   var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     state: state,
     actions: _actions__WEBPACK_IMPORTED_MODULE_2__["default"],
-    getters: _getters__WEBPACK_IMPORTED_MODULE_3__["default"],
+    getters: _getters__WEBPACK_IMPORTED_MODULE_3__,
     mutations: _mutations__WEBPACK_IMPORTED_MODULE_4__["default"]
   });
   return store;

@@ -1,4 +1,2 @@
-export default {
-    getCount: state => { state.count },
-    getTopice: state => { state.topice },
-}
+export const getTopice = state => state.topice
+export const getCount = state => state.count

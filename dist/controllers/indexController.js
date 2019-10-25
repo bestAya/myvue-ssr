@@ -51,8 +51,8 @@ const template = _fs2.default.readFileSync(rootPath + '/assets/index.html', 'utf
 
 const $ = _cheerio2.default.load(template);
 
-$('title').html('京程一灯');
-$("head").append(' <meta name="keywords" content=京程一灯>'); // console.log('模板数据',$.html());
+$('title').html('vue-ssr');
+$("head").append(' <meta name="keywords" content=vue-ssr>'); // console.log('模板数据',$.html());
 
 const serverBundle = require('../assets/vue-ssr-server-bundle.json');
 
